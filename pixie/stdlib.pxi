@@ -2936,3 +2936,11 @@ ex: (vary-meta x assoc :foo 42)"
    :added "0.1"}
   [x f & args]
   (with-meta x (apply f (meta x) args)))
+
+(defn dorun
+  ([coll]
+   (when-let [s (seq coll)]
+     (recur (next s))))
+  ([n coll]
+   (when (and (pos? n) (seq coll))
+     (recur (dec n) (rest coll)))))

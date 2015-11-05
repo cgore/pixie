@@ -726,3 +726,12 @@
 
 (t/deftest test-vary-meta
   (t/assert= 42 (-> {} (vary-meta assoc :foo 42) meta :foo)))
+
+(t/deftest test-dorun
+  (let [n 3
+        x (atom 0)
+        y (atom 0)]
+    (dorun n (repeatedly #(swap! x inc)))
+    (t/assert= @x (+ n 1))
+    (dorun (take n (repeatedly #(swap! y inc))))
+    (t/assert= @y n)))
