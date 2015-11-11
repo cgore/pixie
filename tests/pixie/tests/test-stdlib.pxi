@@ -732,6 +732,6 @@
         x (atom 0)
         y (atom 0)]
     (dorun n (repeatedly #(swap! x inc)))
-    (t/assert= @x (+ n 1))
+    (t/assert= @x n)
     (dorun (take n (repeatedly #(swap! y inc))))
     (t/assert= @y n)))
