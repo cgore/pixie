@@ -65,7 +65,6 @@
   (-> n isnan zero? not))
 
 (def normal-fp?
-  "For floating point numbers, returns true if n is a normal floating point
-  number, false otherwise."
+  "Returns true if n is a normalized floating point number, false otherwise."
   [n]
   (-> n isnormal zero? not))
