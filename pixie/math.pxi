@@ -64,7 +64,12 @@
   "Returns true if n is a NaN, false otherwise."
   (-> n isnan zero? not))
 
-(def normal-fp?
+(def normalized?
   "Returns true if n is a normalized floating point number, false otherwise."
   [n]
   (-> n isnormal zero? not))
+
+(def denormalized?
+  "Returns true if n is a denormalized floating point number, false otherwise."
+  [n]
+  (= FP_SUBNORMAL (fpclassify n)))
