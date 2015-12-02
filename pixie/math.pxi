@@ -25,6 +25,17 @@
   (i/defcfn floor)
   (i/defcfn fmod)
 
+  (i/defcfn fpclassify)
+  (i/defcfn isfinite)          ; Non-zero return => finite.
+  (i/defcfn isinf)             ; Non-zero return => infinite.
+  (i/defcfn isnan)             ; Non-zero return => NaN.
+  (i/defcfn isnormal)          ; Non-zero return => normal FP.
+  (i/defconst FP_INFINITE)     ; Indicates that x is an infinite number.
+  (i/defconst FP_NAN)          ; Indicates that x is not a number (NaN).
+  (i/defconst FP_NORMAL)       ; Indicates that x is a normalized number.
+  (i/defconst FP_SUBNORMAL)    ; Indicates that x is a denormalized number.
+  (i/defconst FP_ZERO)         ; Indicates that x is zero (0 or -0).
+
   (i/defconst M_E)             ; base of natural logarithm, e
   (i/defconst M_LOG2E)         ; log2(e)
   (i/defconst M_LOG10E)        ; log10(e)
@@ -39,3 +50,22 @@
   (i/defconst M_SQRT2)         ; sqrt(2)
   (i/defconst M_SQRT1_2))      ; sqrt(1/2)
 
+(def finite?
+  "Returns true if n is a finite number, false otherwise."
+  [n]
+  (-> n isfinite zero? not))
+
+(def infinite?
+  "Returns true if n is an infinite number, false otherwise."
+  [n]
+  (-> n isinf zero? not))
+
+(def nan?
+  "Returns true if n is a NaN, false otherwise."
+  (-> n isnan zero? not))
+
+(def normal-fp?
+  "For floating point numbers, returns true if n is a normal floating point
+  number, false otherwise."
+  [n]
+  (-> n isnormal zero? not))
